@@ -46,7 +46,7 @@
 | **Устойчивость к сбоям**   | Высокая                                                     | При сбое кеша запись может не пройти | Зависит от актуальности данных в кеше           |
 
 ### 2.3. Диаграмма последовательности
-![Tracing diagram](/architecture-pro-alexandrite/task5/cache.puml)
+![Tracing diagram](https://github.com/Wardar-py/architecture-pro-alexandrite/blob/dev/task5/cache.puml)
 
 
 ### 2.4. Стратегия инвалидации кеша
