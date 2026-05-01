@@ -1,0 +1,46 @@
+@startuml
+skinparam sequence {
+  ArrowColor #333333
+  LifeLineBorderColor #666666
+  ParticipantBorderColor #666666
+  ParticipantBackgroundColor #F0F0F0
+  NoteBackgroundColor #FFFFFF
+  NoteBorderColor #99CCFF
+  NoteFontColor #000000
+}
+
+actor Operator
+participant "MES_Frontend" as Frontend
+participant "MES_API" as API
+participant "Redis"
+database "MES_DB" as DB
+
+group Получение списка заказов [#E6F2FF]
+  note over Operator, DB: GET /orders?status=new
+  Operator -> Frontend: Открывает дашборд
+  Frontend -> API: GET /orders?status=new&page=1&size=20
+  API -> Redis: GET orders:status:new:page:1:size:20
+  alt Кеш-промах
+      Redis --> API: nil
+      API -> DB: SELECT ... FROM orders WHERE status='NEW' LIMIT 20 OFFSET 0
+      DB --> API: результат
+      API -> Redis: SETEX orders:status:new:page:1:size:20 60 <результат>
+  else Кеш-попадание
+      Redis --> API: кешированные данные
+  end
+  API --> Frontend: JSON с заказами
+  Frontend --> Operator: Отображает список
+end
+
+group Изменение статуса заказа [#FFE6E6]
+  note over Operator, DB: PUT /orders/{id}/status
+  Operator -> Frontend: Нажимает "Взять в работу"
+  Frontend -> API: PUT /orders/123/status {status: "MANUFACTURING_STARTED"}
+  API -> DB: UPDATE orders SET status='MANUFACTURING_STARTED' WHERE id=123
+  DB --> API: OK
+  API -> Redis: DEL orders:status:new:page:1:size:20 (и другие затронутые страницы)
+  API -> Redis: DEL order:123
+  API --> Frontend: 200 OK
+  Frontend --> Operator: Статус обновлён, дашборд автоматически перезапросит данные
+end
+@enduml
