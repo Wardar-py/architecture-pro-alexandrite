@@ -70,7 +70,7 @@
 Альтернатива:
 - **Yandex Managed Service for Elasticsearch/OpenSearch**, если компания остаётся в Yandex Cloud – это снизит нагрузку на DevOps.
 
-![Tracing diagram](https://github.com/Wardar-py/architecture-pro-alexandrite/blob/dev/task4/jewerly_c4_model_orange.drawio)
+[Tracing_diagram](https://github.com/Wardar-py/architecture-pro-alexandrite/blob/dev/task4/jewerly_c4_model_orange.drawio)
 
 Политика безопасности в отношении логов:
 - **Маскирование чувствительных данных:** все поля, содержащие персональные данные (имя клиента, email, адрес), должны маскироваться или шифроваться до записи в лог.

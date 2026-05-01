@@ -55,7 +55,7 @@
 - **Сбор и экспорт телеметрии**: развернуть **OpenTelemetry Collector** в качестве промежуточного шлюза, который будет принимать трассировочные данные по протоколу OTLP, обогащать их, маскировать чувствительные поля и направлять в хранилище.
 - **Хранение и визуализация**: использовать **Grafana Tempo** как backend для трейсов. UI предоставляет Grafana с дашбордом поиска и просмотра трейсов.
 
-![Tracing diagram](https://github.com/Wardar-py/architecture-pro-alexandrite/blob/dev/task3/jewerly_c4_model_red.drawio)
+[Tracing diagram](https://github.com/Wardar-py/architecture-pro-alexandrite/blob/dev/task3/jewerly_c4_model_red.drawio)
 
 ## 5. Компромиссы
 
@@ -87,4 +87,4 @@ OpenTelemetry Collector может генерировать метрики из 
 - Контроль целостности сообщений через анализ спанов потребления: если для спана‑продюсера нет соответствующего спана‑консюмера в течение N минут – алерт о потерянном сообщении.
 - Для API‑пользователей: если количество заказов, зависших в статусе `SUBMITTED` > 5, оповещать поддержку.
 
-![Full monitoring and tracing diagram](https://github.com/Wardar-py/architecture-pro-alexandrite/blob/dev/task3/jewerly_c4_model_green.drawio)
+[Full monitoring and tracing diagram](https://github.com/Wardar-py/architecture-pro-alexandrite/blob/dev/task3/jewerly_c4_model_green.drawio)
